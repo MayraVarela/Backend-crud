@@ -1,0 +1,20 @@
+extends layout
+
+block content
+  h1.all-items-header#all-items-header.register-h1 Registro de Usuario
+  div.main#main.main-register
+    form(action="/register", method="post")
+      div.edit-div
+        label(for="email") Email:
+        input(type="email", id="email", name="email", required, autocomplete="email")
+      div.edit-div
+        label(for="password") Contraseña:
+        input(type="password", id="password", name="password", required, autocomplete="current-password")
+      button#button-register.button-register(type="submit") Registrarse
+      a#register-back.register-back(href="/products") Volver a Inicio
+  if message     
+    p.message= message
+  else if errorMessage
+    script.
+      alert("#{errorMessage}")
+

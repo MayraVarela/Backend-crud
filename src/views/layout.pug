@@ -1,0 +1,120 @@
+doctype html
+html
+  head
+    title= title
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    link(rel="stylesheet", href="/styles.css")
+    link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css")
+  body
+    .container
+      header.header#header  
+        img.logo(src="/images/2-sinfondo.png", onclick="window.location='/products'", style="cursor: pointer;")
+        nav.nav#nav
+
+          ul.links
+            li
+              a.effect#link1(href="/products") Productos
+            li
+              a.effect#link2(href="/category/Camisetas") Camisetas
+            li
+              a.effect#link3(href="/category/Pantalones") Pantalones
+            li
+              a.effect#link4(href="/category/Zapatos") Zapatos
+            li
+              a.effect#link5(href="/category/Accesorios") Accesorios
+        
+          label.checkbtn(for='check')
+          //Con el input no da error en la consola
+          input#check(type="text", style="display: none")
+          i.fa-solid.fa-bars.icono(onclick='toggleCheckbox()')
+          if session && session.uid
+            button#create-button.create-button(type="button") Crear producto
+            li
+              form(action="/logout", method="post")#logout
+                button#logout-button.logout-button(type="submit") Logout
+            // Modal para el formulario de creación
+            #create-modal.modal
+              #create-content.modal-content
+                .close-button &times;
+                h2 Crear Nuevo Producto
+                // Formulario para crear un nuevo producto
+                form#create-form(action="/dashboard/new", method="post", enctype="multipart/form-data")
+                  div.inputs
+                    label(for="name") Nombre:
+                    input#name.form-input(type='text', placeholder='Nombre del producto' name='name' required, autocomplete = "name")
+                  div.inputs
+                    label(for="description") Descripción:
+                    textarea#description.form-input(placeholder='Descripción...' name='description' required)
+                  div.inputs
+                    label(for='category') Categoría:
+                    select#category.form-input(name='category' required)
+                      option(value='' selected disabled) Seleciona una Categoría
+                      option(value='Camisetas') Camisetas
+                      option(value='Pantalones') Pantalones
+                      option(value='Zapatos') Zapatos
+                      option(value='Accesorios') Accesorios
+                  div.inputs
+                    label(for="size") Talla:
+                    select#size.form-input(name='size' required)
+                      option(value='' selected disabled) Seleciona una Categoría
+                      option(value='XS') XS
+                      option(value='S') S
+                      option(value='M') M
+                      option(value='L') L
+                      option(value='XL') XL
+                  div.inputs
+                    label(for="price") Precio:
+                    input#price.form-input(type='text', placeholder='Precio del producto' name='price' required)
+                  div.inputs
+                    label(for="image") Añadir imagen:
+                    input(type='file', name='image', id='imageInput')
+                    img(id='previewImage', src='')
+                  button#button-new-product.button-new-product(type="submit") Crear
+          else
+            button#login-button.login-button(type="button") Login
+            // Modal para el formulario de login
+            #login-modal
+              .modal-content#modal-content
+                span.close-button &times;
+                h2 Iniciar Sesión
+                form#login-form(action="/login", method="POST")
+                  div.edit-div
+                    label(for="email1") Email:
+                    input(type="email", id="email1", name="email", required, autocomplete="email")
+                  div.edit-div
+                    label(for="password1") Contraseña:
+                    input(type="password", id="password1", name="password", required, , autocomplete="current-password")
+                  button.button-new-sesion(id="button-new-sesion" type="submit") Iniciar Sesión
+                  a.register#register-button(href="/register") Registrarse
+        .dark-mode-toggle(onclick="toggleDarkMode()")
+          div#sky.sky
+            img.icon.sun-icon(src="/images/sol.png", id="sun-icon")
+            img.icon.moon-icon.hidden(src="/images/luna.png", id="moon-icon")
+      main.content
+          block content
+      div.go-up-arrow-div
+        img.go-up-arrow(
+          src="/images/flecha.png" 
+          onclick="window.scrollTo({ top: 0, behavior: 'smooth' })"
+        )
+
+  footer#footer.footer
+    #footer-info.footer-info
+      a(href="/products", title="Aviso legal") Avíso legal
+      a(href="/products", title="Política de cookies") Política de cookies
+      a(href="/products", title="Política de privacidad") Política de privacidad
+    #footer-contact-info.footer-contact-info
+      h3 Contacto
+      p Para más información o resolver dudas contáctanos a traves de:
+      p +34 635148856
+      p theclothesshop@hotmail.com
+      p C/ Mayor 5 46700 Madrid
+      p De lunes a viernes de 8:00 a 14:00 y 16:00 a 20:30. Sabados de 8:00 a 14:30.
+    #footer-social-media.footer-social-media
+      a(target="_blank", href="https://github.com/Andhalaya", title="Facebook")
+        img(src="https://i.ibb.co/tBgRysz/facebook.png", width="37", height="37", alt="Facebook")
+      a(target="_blank", href="https://github.com/MayVarela16", title="Instagram")
+        img(src="https://i.ibb.co/RQLF9Lr/instagram.png", width="37", height="37", alt="Instagram")
+      a(target="_blank", href="https://github.com/FSEduP", title="Twitter")
+        img(src="https://i.ibb.co/5nWfXLy/twitter.png", width="37", height="37", alt="Twitter")
+    script(src="/script.js")

@@ -1,0 +1,19 @@
+extends layout
+
+block content
+  h1.all-items-header#all-items-header Dashboard 
+  div.main
+    if products && products.length
+      div.items
+        each product in products
+          a(href=`/dashboard/${product._id}`)
+            div.item-card-dashboard#item-card-dashboard
+              div.item-image-container
+                if product.image 
+                  img(src=product.image, alt=product.name)
+                else 
+                  img(src='/imagenes/default.jpg', alt='Default image')
+              div.item-text-dashboard#item-text-dashboard
+                p #{product.name} #{product.price}€
+    else
+      p There are no items.

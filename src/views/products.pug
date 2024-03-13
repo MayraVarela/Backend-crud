@@ -1,0 +1,19 @@
+extends layout
+
+block content
+  h1.all-items-header#all-items-header All products
+  div.main
+    if products && products.length
+      div.items
+        each product in products
+          a(href= product.url)
+            div.item-card
+              div.item-image-container
+                if product.image 
+                  img(src=product.image, alt=product.name)
+                else 
+                  img(src='/imagenes/default.jpg', alt='Default image')
+              div.item-text
+                p #{product.name} #{product.price}€
+    else
+      p There are no items.

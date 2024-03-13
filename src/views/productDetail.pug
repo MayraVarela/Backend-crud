@@ -1,0 +1,201 @@
+extends layout
+
+
+block content
+  div#main.main-product
+    h1=product.name
+    .item
+      div.item-details
+        div.item-field-title
+          span.available
+          | Disponiblidad 
+        p.item-description#item-description #{product.description}
+        p
+          b.item-field-title Categoría:
+          | #{product.category}
+        p
+          b.item-field-title Talla:
+          | #{product.size}
+        p
+          b.item-field-title Precio:
+          | #{product.price}€
+
+        div.sizes
+        img.description-icons(src="/images/tallas.png")
+        a#sizes-link.item-field-title(href="#" role="button") Guía de Tallas
+        #sizes-modal.modal(style="display: none;")
+          .modal-content#sizes-content.sizes-content
+            .close-button &times;
+            b.table-title Guía de Tallas 
+            table.sizes-table
+              p.table-text Mujer:
+              thead
+                tr
+                  th Talla
+                  th Pecho (cm)
+                  th Cintura (cm)
+                  th Cadera (cm)
+              tbody
+                tr.tr-1
+                  td XS
+                  td 80-84
+                  td 60-64
+                  td 86-90
+                tr.tr-2
+                  td S
+                  td 85-89
+                  td 65-69
+                  td 91-95
+                tr.tr-1
+                  td M
+                  td 90-94
+                  td 70-74
+                  td 96-100
+                tr.tr-2
+                  td L
+                  td 95-99
+                  td 75-79
+                  td 101-105
+                tr.tr-1
+                  td XL
+                  td 100-104
+                  td 80-84
+                  td 106-110
+
+            table.sizes-table
+              p.table-text Hombre:
+              thead
+                tr
+                  th Talla
+                  th Pecho (cm)
+                  th Cintura (cm)
+                  th Cadera (cm)
+              tbody
+                tr.tr-1
+                  td XS
+                  td 88-92
+                  td 74-78
+                  td 89-93
+                tr.tr-2
+                  td S
+                  td 93-97
+                  td 79-83
+                  td 94-98
+                tr.tr-1
+                  td M
+                  td 98-102
+                  td 84-88
+                  td 99-103
+                tr.tr-2
+                  td L
+                  td 103-107
+                  td 89-93
+                  td 104-108
+                tr.tr-1
+                  td XL
+                  td 108-112
+                  td 94-98
+                  td 109-113
+
+              table.sizes-table
+                P.table-text Calzado:
+                thead
+                  tr
+                    th Talla
+                    th Longitud del pie (cm)
+                tbody
+                  tr.tr-1
+                    td XS
+                    td 22.5
+                  tr.tr-2
+                    td S
+                    td 23
+                  tr.tr-1
+                    td M
+                    td 23.5
+                  tr.tr-2
+                    td L
+                    td 24
+                  tr.tr-1
+                    td XL
+                    td 24.5
+
+              table.sizes-table
+                P.table-text Accesorios:
+                thead
+                  tr
+                    th Talla Accesorios
+                tbody
+                  tr.tr-1
+                    td XS
+                  tr.tr-2
+                    td S
+                  tr.tr-1
+                    td M
+                  tr.tr-2
+                    td L
+                  tr.tr-1
+                    td XL
+        details.delivery-info#details-delivery
+          summary 
+            img.description-icons(src="/images/envios.png")
+            | Entrega y devoluciones:
+          p Reserva web : Reserva tus productos en línea y recógelo en cualquier tienda The clothes store
+          p.delivery Entrega en 1 a 3 días laborables (10 días laborables Canarias)
+          p Click and collect : GRATIS sin mínimo de compra
+          p Paga en línea y recoge tus productos en tienda
+          p.delivery Entrega en 1 a 3 días laborables (10 días laborables Canarias)
+          p A domicilio : 5€ - GRATIS a partir de 50€
+          p.delivery Entrega en 1 a 3 días laborables (10 días laborables Canarias)
+          p Punto de recogida : 3€ - GRATIS a partir de 15€
+          p.delivery Entrega en 1 a 3 días laborables (10 días laborables Canarias)
+          p Entrega al día siguiente en tienda : Servicio de click and collect y reserva web
+          p.delivery Entrega el dia siguiente en las tiendas The clothes store (Península)
+       
+        details#details-change
+          summary 
+            img.description-icons(src="/images/cambios.png")
+            | Cambios y reembolsos:
+          p 30 días para cambiar de opinión (cambiar o devolver)
+          p 60 días para cambiar de opinión para clientes con tarjeta de fidelidad (cambiar o devolver)
+          p Posibilidad de hacer la devolución de artículos a distancia mediante Correos
+        
+        p.safe-payment 
+          img.description-icons(src="/images/pago-seguro.png")
+          b.item-field-title Pago seguro:
+          p.payment-methods
+            img(src="/images/paypal.png", alt="Paypal")
+            img(src="/images/mastercard.png", alt="MasterCard")
+            img(src="/images/visa.png", alt="Visa")
+            img(src="/images/american-express.png", alt="American Express")
+            img(src="/images/google-pay.png",style={width: "95px"}, alt="Google Pay")
+            img(src="/images/apple-pay.png", alt="Apple Pay")
+
+      div.item-image
+        div.item-image-container
+                if product.image
+                  img(src=product.image, alt=product.name)
+                else
+                  img(src='/images/default.jpg', alt='Default image')
+    if session && session.uid
+      div.buttons
+        div.update
+          a(href=`/dashboard/${product._id}/edit`)
+            button#edit-button.edit-button
+              | Editar artículo
+              //- span.material-symbols-outlined.update-pen
+              //-   | edit
+        div.delete
+            button#delete-button.delete-button
+              | Eliminar artículo
+              //- span.material-symbols-outlined.update-pen
+              //-   | delete
+        #delete-modal.modal(style="display: none;")
+              .modal-content#delete-button-form
+                #delete-close-button.close-button &times;
+                h2 Eliminar Producto
+                p ¿Estás seguro que quieres borrar este producto de la página?
+                form(action=`/dashboard/${product._id}/delete` method='post')
+                  div.form-group
+                    input#item-id.form-control(type='hidden' name='productId' value=product._id)
+                  button#delete-button-submit.delete-button-submit(type='submit') Eliminar

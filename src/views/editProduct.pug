@@ -1,0 +1,40 @@
+extends layout
+
+block content
+  h1.all-items-header#all-items-header Editar: 
+  div.main
+    div.edit-container#edit-form
+      form(action=`/dashboard/${product._id}/edit`, method="post", enctype='multipart/form-data')
+        div.edit-div
+          label(for="name") Nombre:
+          input#name.form-input(type='text', name='name', required, value=product.name, autocomplete = "name")
+        div.edit-div
+          label(for="description") Descripción:
+          textarea#description.form-input(name='description', required)=product.description
+        div.edit-div
+          label(for='category') Categoría:
+          select#category.form-input(name='category', required)
+            option(value=product.category) #{product.category}
+            option(value='Camisetas') Camisetas
+            option(value='Pantalones') Pantalones
+            option(value='Zapatos') Zapatos
+            option(value='Accesorios') Accesorios
+        div.edit-div
+          label(for="size") Talla:
+          select#size.form-input(name='size', required)
+            option(value=product.size) #{product.size}
+            option(value='XS') XS
+            option(value='S') S
+            option(value='M') M
+            option(value='L') L
+            option(value='XL') XL
+        div.edit-div
+          label(for="price") Precio:
+          input#price.form-input(type='text', name='price', required, value=product.price)
+        div.edit-div
+          label(for="image") Añadir imagen:
+          input(type='file', name='image', id='imageInput')
+          img(id='previewImage', src='')
+          
+        button#edit-button-submit.edit-button-submit(type="submit") Editar
+        a#edit-cancel.edit-cancel(href=`/dashboard/${product._id}`) Cancelar
